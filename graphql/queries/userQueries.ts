@@ -27,3 +27,18 @@ export const GET_USER_BY_ID = gql`
     }
   }
 `;
+
+export const LOGIN_USER = gql`
+  mutation LoginUser($username: String!, $password: String!) {
+    loginUser(username: $username, password: $password) {
+      success
+      message
+      user {
+        id
+        name
+        profilePicturePath
+        username
+      }
+    }
+  }
+`;

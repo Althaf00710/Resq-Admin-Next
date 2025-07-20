@@ -2,63 +2,70 @@
 
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { useMutation } from '@apollo/client';
+import { LOGIN_USER } from '@/graphql/mutations/userMutations';
+import { LoginUserData, LoginUserVars } from '@/graphql/types/user';
 
 export default function LoginForm() {
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const router = useRouter();
+  const [message, setMessage] = useState('');
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const router = useRouter();
+  const [loginUser, { loading }] = useMutation<LoginUserData, LoginUserVars>(LOGIN_USER);
+
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     try {
-      const response = await fetch('/api/auth/login', {
-        method: 'POST',
-        body: JSON.stringify({ email, password }),
+      const { data } = await loginUser({
+        variables: {
+          username,
+          password,
+        },
       });
-      
-      if (response.ok) {
-        router.push('/admin/dashboard');
+
+      if (data?.loginUser.success) {
+        // Store user/session info
+        localStorage.setItem('token', JSON.stringify(data.loginUser.message));
+        router.push('/dashboard');
       } else {
-        setError('Invalid credentials');
+        setMessage(data?.loginUser.message || 'Login failed');
       }
-    } catch (error) {
-      setError('Login failed');
+    } catch (err) {
+      console.error(err);
+      setMessage('Login error. Try again.');
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="mt-8 space-y-6">
-      {error && <div className="text-red-500">{error}</div>}
-      <div>
-        <label htmlFor="email">Email</label>
+    <div className="p-4 max-w-md mx-auto">
+      <form onSubmit={handleLogin} className="space-y-4">
         <input
-          id="email"
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
           className="w-full p-2 border rounded"
+          type="text"
+          placeholder="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          required
         />
-      </div>
-      <div>
-        <label htmlFor="password">Password</label>
         <input
-          id="password"
+          className="w-full p-2 border rounded"
           type="password"
+          placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
-          className="w-full p-2 border rounded"
         />
-      </div>
-      <button
-        type="submit"
-        className="w-full px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-      >
-        Sign In
-      </button>
-    </form>
+        <button
+          className="w-full p-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+          type="submit"
+          disabled={loading}
+        >
+          {loading ? 'Logging in...' : 'Login'}
+        </button>
+        {message && <p className="text-red-600 text-sm">{message}</p>}
+      </form>
+    </div>
   );
 }
