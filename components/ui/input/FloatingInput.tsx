@@ -21,7 +21,7 @@ const FloatingInput = React.forwardRef<HTMLInputElement, FloatingInputProps>(
             dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:focus:ring-neutral-600
             focus:pt-6 focus:pb-2 not-placeholder-shown:pt-6 not-placeholder-shown:pb-2
             autofill:pt-6 autofill:pb-2
-            ${className}
+            ${className} 
           `}
           {...props}
         />

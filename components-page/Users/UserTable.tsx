@@ -33,7 +33,7 @@ const UserTable: React.FC<UserTableProps> = ({ users, onEdit, onDelete }) => {
               <td className="px-4 py-2">
                 <div className="h-10 w-10 rounded-full overflow-hidden">
                   <Image
-                    src={user.profilePicturePath || '/default-avatar.png'}
+                    src={user.profilePicturePath || '/defaultProfile.png'}
                     alt={user.name}
                     width={40}
                     height={40}

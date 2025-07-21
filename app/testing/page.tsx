@@ -1,12 +1,20 @@
 'use client';
-import UserTable from "@/components-page/Users/UserTable";
 
-const users: User[] = [];
+import { useQuery } from '@apollo/client';
+import { GET_ALL_USERS } from '@/graphql/queries/userQueries';
+import { User } from '@/graphql/types/user';
 
-export default function Page() {
+export default function UserList() {
+  const { data, loading, error } = useQuery(GET_ALL_USERS);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>;
+
   return (
-    <div className="p-6">
-      <UserTable users={users} />
-    </div>
+    <ul>
+      {data.users.map((user:User) => (
+        <li key={user.id}>{user.name}</li>
+      ))}
+    </ul>
   );
 }
