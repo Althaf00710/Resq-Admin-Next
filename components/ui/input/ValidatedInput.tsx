@@ -10,6 +10,7 @@ interface ValidatedInputProps extends React.InputHTMLAttributes<HTMLInputElement
   onDebouncedChange?: (value: string) => void;
   debounceDelay?: number;
   LeftIcon?: React.ReactNode;
+  textarea?: boolean;
 }
 
 const ValidatedInput: React.FC<ValidatedInputProps> = ({
@@ -19,6 +20,7 @@ const ValidatedInput: React.FC<ValidatedInputProps> = ({
   debounceDelay = 500,
   LeftIcon = <User className="w-5 h-5 text-muted-foreground" />,
   className = '',
+  textarea = false,
   ...props
 }) => {
   const [value, setValue] = useState('');
@@ -67,6 +69,7 @@ const ValidatedInput: React.FC<ValidatedInputProps> = ({
         value={value}
         onChange={(e) => setValue(e.target.value)}
         className={`pl-10 pr-10 ${borderColor} ${className}`}
+        textarea={textarea}
         {...props}
       />
     </div>

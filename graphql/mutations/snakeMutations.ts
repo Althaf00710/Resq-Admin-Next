@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
 export const CREATE_SNAKE = gql`
-  mutation CreateSnake($input: CreateSnakeInput!, $image: Upload) {
+  mutation CreateSnake($input: SnakeCreateInput!, $image: Upload) {
     createSnake(input: $input, image: $image) {
       success
       message
@@ -18,7 +18,7 @@ export const CREATE_SNAKE = gql`
 `;
 
 export const UPDATE_SNAKE = gql`
-  mutation UpdateSnake($id: ID!, $input: UpdateSnakeInput!, $image: Upload) {
+  mutation UpdateSnake($id: Int!, $input: SnakeUpdateInput!, $image: Upload) {
     updateSnake(id: $id, input: $input, image: $image) {
       success
       message
