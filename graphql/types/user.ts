@@ -38,6 +38,7 @@ export interface UpdateUserVars {
     name: string;
     username: string;
     password: string;
+    pictureDeleted: boolean;
   };
   profilePicture?: File;
 }

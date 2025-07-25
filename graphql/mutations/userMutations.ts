@@ -15,11 +15,15 @@ export const LOGIN_USER = gql`
   }
 `;
 
+
 export const CREATE_USER = gql`
-  mutation CreateUser($input: CreateUserInput!, $profilePicture: Upload) {
+  mutation CreateUser(
+    $input: UserCreateInput!
+    $profilePicture: Upload
+  ) {
     createUser(input: $input, profilePicture: $profilePicture) {
-      message
       success
+      message
       user {
         id
         email
@@ -34,10 +38,14 @@ export const CREATE_USER = gql`
 `;
 
 export const UPDATE_USER = gql`
-  mutation UpdateUser($id: ID!, $input: UpdateUserInput!, $profilePicture: Upload) {
+  mutation UpdateUser(
+    $id: Int!
+    $input: UserUpdateInput!
+    $profilePicture: Upload
+  ) {
     updateUser(id: $id, input: $input, profilePicture: $profilePicture) {
-      message
       success
+      message
       user {
         id
         email
@@ -52,10 +60,10 @@ export const UPDATE_USER = gql`
 `;
 
 export const DELETE_USER = gql`
-  mutation DeleteUser($id: ID!) {
+  mutation DeleteUser($id: Int!) {
     deleteUser(id: $id) {
-      message
       success
+      message
       user {
         id
         username

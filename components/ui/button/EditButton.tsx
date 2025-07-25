@@ -12,7 +12,7 @@ const EditButton: React.FC<EditButtonProps> = ({ onClick, label = 'Edit' }) => {
   return (
     <button
       onClick={onClick}
-      className="inline-flex items-center gap-1 px-3 py-1.5 text-sm border border-gray-300 rounded-md hover:bg-gray-100 transition"
+      className="inline-flex items-center gap-1 px-3 py-1.5 text-sm border border-gray-300 rounded-full bg-white hover:bg-gray-50 transition cursor-pointer"
     >
       <Pencil className="w-4 h-4" />
       {label}
