@@ -31,7 +31,7 @@ export default function Page() {
   const [updateUser] = useMutation(UPDATE_USER);
   const [deleteUser] = useMutation(DELETE_USER);
 
-  const filteredUsers = users.filter((u) =>
+  const filteredUsers = users.filter((u:User) =>
     [u.name, u.username, u.email]
       .some((field) =>
         field.toLowerCase().includes(searchTerm.toLowerCase())
@@ -89,7 +89,7 @@ export default function Page() {
   };
 
   return (
-    <div className="p-4 space-y-6">
+    <div className="space-y-6">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
         <h1 className="text-2xl font-semibold text-gray-700">Users</h1>

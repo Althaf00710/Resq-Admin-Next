@@ -1,0 +1,112 @@
+'use client';
+
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { LayoutDashboard, User, Worm, Menu, X } from 'lucide-react';
+import React from 'react';
+import { DotLottieReact } from '@lottiefiles/dotlottie-react';
+import './gradient-flow.css';
+import Image from 'next/image';
+
+interface NavbarProps {
+  collapsed?: boolean;
+  onToggle: () => void;
+}
+
+const navItems = [
+  {
+    label: 'Dashboard',
+    href: '/admin/dashboard',
+    icon: <LayoutDashboard size={20} />,
+    description: 'View system metrics and reports',
+    lottieUrl: 'https://lottie.host/0eaca8c3-8098-488a-9077-e188db875a29/5RdxvpEsQ2.json',
+  },
+  {
+    label: 'Snakes',
+    href: '/admin/snakes',
+    icon: <Worm size={20} />,
+    description: 'Manage snake species records',
+    lottieUrl: 'https://lottie.host/48f9eff0-29bd-4d2f-9a0e-cce0f666d00d/wvWMxBm4xj.json',
+  },
+  {
+    label: 'Users',
+    href: '/admin/users',
+    icon: <User size={20} />,
+    description: 'Manage user accounts and permissions',
+    lottieUrl: 'https://lottie.host/a3cfd9e0-6b0e-4695-9123-c44be6a6f021/bDSF8z41C4.json',
+  },
+];
+
+
+
+
+const Navbar: React.FC<NavbarProps> = ({ collapsed = false, onToggle }) => {
+  const pathname = usePathname();
+
+  return (
+    <aside className="h-full p-3 flex flex-col justify-between animate-gradient text-white shadow-lg">
+      <div>
+        {/* Top: Image + Toggle */}
+        <div className="flex items-center justify-between mb-4">
+          {!collapsed && (
+            <Image
+              src="/App_Logo.png"        
+              alt="App Logo"             
+              width={100}               
+              height={100}
+              className='ml-2'
+            />
+          )}
+          <button
+            className="flex items-center justify-center w-8 h-8 text-gray-600 dark:text-gray-300 hover:text-blue-700 cursor-pointer focus:outline-none"
+            onClick={onToggle}
+          >
+            {collapsed ? <X size={20} className='ml-2'/> : <Menu size={20} />}
+          </button>
+        </div>
+
+        {/* Navigation */}
+        <nav className="space-y-0 relative">
+          {navItems.map((item) => (
+            <div key={item.href} className="relative group">
+              <Link
+                href={item.href}
+                className={`flex items-center px-3 py-3 rounded-md text-sm font-semibold transition ${
+                  pathname === item.href
+                    ? 'bg-gray-100/50 text-blue-700 dark:bg-blue-800 dark:text-white'
+                    : 'text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-neutral-700'
+                } ${collapsed ? 'justify-center' : 'gap-3'}`}
+              >
+                {item.icon}
+                {!collapsed && <span>{item.label}</span>}
+              </Link>
+
+              {/* Tooltip shown only when collapsed */}
+              {collapsed && (
+                <div className="absolute left-full top-1/2 mt-2 -translate-y-1/2 ml-1 z-20 hidden group-hover:flex w-48 rounded-xl border border-gray-300 backdrop-blur-md bg-black/30 
+                              dark:bg-neutral-800/70 shadow-xl p-1 transition-all">
+                  <div className="flex flex-col items-center text-center space-y-2">
+                    <DotLottieReact 
+                      autoplay
+                      loop
+                      src={item.lottieUrl}
+                      style={{ height: 86, width: 144, marginBottom: 0, marginTop: 0 }}
+                    />
+                    <p className="text-sm m-0 font-semibold text-white dark:text-white">
+                      {item.label}
+                    </p>
+                    <p className="text-xs font-semibold text-shadow-gray-800 text-gray-100 dark:text-gray-100 leading-snug">
+                      {item.description}
+                    </p>
+                  </div>
+                </div>
+              )}
+            </div>
+          ))}
+        </nav>
+      </div>
+    </aside>
+  );
+};
+
+export default Navbar;

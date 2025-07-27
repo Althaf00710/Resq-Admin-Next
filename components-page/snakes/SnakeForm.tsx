@@ -5,7 +5,7 @@ import { Snake, SnakeInput, CreateSnakeVars, UpdateSnakeVars } from '@/graphql/t
 import ValidatedInput from '@/components/ui/input/ValidatedInput';
 import { X, ImagePlus, BookOpen, AlignLeft } from 'lucide-react';
 import Image from 'next/image';
-import ColoredSelect, { Option } from '@/components/ui/button/ColoredSelect';
+import ColoredSelect, { Option } from '@/components/ui/select/ColoredSelect';
 
 interface SnakeFormProps {
   isOpen: boolean;

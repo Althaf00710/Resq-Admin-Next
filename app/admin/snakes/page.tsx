@@ -2,12 +2,12 @@
 
 import React, { useState } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
-import DebouncedSearchBar from '@/components/ui/search/DebouncedSearchBar';
 import AddButton from '@/components/ui/button/AddButton';
 import SnakeCard from '@/components-page/snakes/SnakeCard';
 import SnakeForm from '@/components-page/snakes/SnakeForm';
 import GooLoader from '@/components/ui/Loader';
-import ColoredSelect, { Option } from '@/components/ui/button/ColoredSelect';
+import type { Option } from '@/components/ui/select/ColoredSelect';
+
 
 import {
   CreateSnakeVars,
@@ -20,6 +20,7 @@ import {
   UPDATE_SNAKE,
   DELETE_SNAKE,
 } from '@/graphql/mutations/snakeMutations';
+import SearchWithFilter from '@/components/ui/search/SearchWithFilter';
 
 export default function SnakePage() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -105,44 +106,36 @@ export default function SnakePage() {
   };
 
   return (
-    <div className="p-4 space-y-6">
+    <div className="space-y-6">
         {/* Header */}
         <div className="relative flex items-center justify-between mb-4 h-12 w-full">
-        {/* Left Placeholder (for structure balance if needed) */}
+        {/* Title - Left */}
         <h1 className="text-2xl font-semibold text-gray-700">Snakes</h1>
 
-        {/* Search Bar - centered */} 
-        <div className="absolute left-1/2 transform -translate-x-1/2 w-full max-w-md">
-            <DebouncedSearchBar
+        {/* Search + Filter - Centered */}
+        <div className="absolute left-1/2 transform -translate-x-1/2 z-10">
+          <SearchWithFilter
             onSearch={setSearchTerm}
+            onFilterChange={setVenomFilter}
+            selectOptions={venomOptions}
+            selectedFilter={venomFilter}
+            selectLabel="Venom Type"
             placeholder="Search Snakes"
-            />
+          />
         </div>
 
-        {/* Dropdown - right next to search bar */}
-        <div className="absolute left-1/2 transform -translate-x-1/2 translate-x-[calc(100%+3rem)] w-48">
-            <ColoredSelect
-            label="Venom Type"
-            value={venomFilter}
-            onChange={setVenomFilter}
-            options={venomOptions}
-            />
+        {/* Add Button - Right */}
+        <div className="ml-auto w-32 flex justify-end">
+          <AddButton onClick={handleAdd} />
         </div>
-
-        {/* Add Button - aligned right */}
-        <div className="w-32 flex justify-end">
-            <AddButton onClick={handleAdd} />
-        </div>
-    </div>
-
-
+      </div>
 
       {/* Loading / Error */}
       {loading && <GooLoader />}
       {error && <p className="text-red-500">Error fetching snakes.</p>}
 
       {/* Cards Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+      <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 xxl:grid-cols-5">
         {filteredSnakes.map((snake) => (
           <SnakeCard
             key={snake.id}
@@ -152,6 +145,7 @@ export default function SnakePage() {
           />
         ))}
       </div>
+
 
       {/* Modal Form */}
       <SnakeForm

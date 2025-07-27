@@ -24,7 +24,7 @@ const SnakeCard: React.FC<SnakeCardProps> = ({ snake, onEdit, onDelete }) => {
     venomColorMap[snake.venomType.toLowerCase()] || 'bg-gray-600 dark:bg-gray-500';
 
   return (
-    <div className="bg-gray-200 dark:bg-neutral-900 rounded-xl overflow-hidden shadow-md w-80">
+    <div className="bg-gray-200 dark:bg-neutral-900 rounded-xl overflow-hidden shadow-lg">
       {/* Image Section */}
       <div className="relative h-40 bg-gray-100 dark:bg-gray-800">
         <Image
