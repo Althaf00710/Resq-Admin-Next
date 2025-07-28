@@ -2,7 +2,7 @@ export interface EmergencySubCategory {
   id: string;
   name: string;
   description: string;
-  emergencyCategoryId: string;
+  emergencyCategoryId: number;
   imageUrl: string;
 }
 

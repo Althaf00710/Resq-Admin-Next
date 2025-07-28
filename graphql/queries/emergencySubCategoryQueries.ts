@@ -31,6 +31,7 @@ export const GET_SUBCATEGORIES_BY_CATEGORY = gql`
       name
       description
       imageUrl
+      emergencyCategoryId
     }
   }
 `;
