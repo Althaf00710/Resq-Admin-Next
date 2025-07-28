@@ -44,13 +44,13 @@ export const LOGIN_USER = gql`
 `;
 
 export const CHECK_USERNAME = gql`
-  query CheckUsername($username: String!) {
-    checkUsername(username: $username)
+  query UserCheckUsername($username: String!) {
+    userCheckUsername(username: $username)
   }
 `;
 
 export const CHECK_EMAIL = gql`
-  query CheckEmail($email: String!) {
-    checkEmail(email: $email)
+  query UserCheckEmail($email: String!) {
+    userCheckEmail(email: $email)
   }
 `;

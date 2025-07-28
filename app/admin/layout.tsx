@@ -29,7 +29,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       {/* Sidebar */}
       <div
         className={`hidden md:block transition-all duration-300 border-r border-gray-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 ${
-          sidebarCollapsed ? 'w-17' : 'w-56'
+          sidebarCollapsed ? 'w-17' : 'w-62'
         }`}
       >
         <Navbar collapsed={sidebarCollapsed} onToggle={handleToggle} />

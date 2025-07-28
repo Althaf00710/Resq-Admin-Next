@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
 export const CREATE_EMERGENCY_SUBCATEGORY = gql`
-  mutation CreateEmergencySubCategory($input: CreateEmergencySubCategoryInput!, $image: Upload) {
+  mutation CreateEmergencySubCategory($input: EmergencySubCategoryCreateInput!, $image: Upload) {
     createEmergencySubCategory(input: $input, image: $image) {
       success
       message
@@ -17,7 +17,7 @@ export const CREATE_EMERGENCY_SUBCATEGORY = gql`
 `;
 
 export const UPDATE_EMERGENCY_SUBCATEGORY = gql`
-  mutation UpdateEmergencySubCategory($id: ID!, $input: UpdateEmergencySubCategoryInput!, $image: Upload) {
+  mutation UpdateEmergencySubCategory($id: Int!, $input: EmergencySubCategoryUpdateInput!, $image: Upload) {
     updateEmergencySubCategory(id: $id, input: $input, image: $image) {
       success
       message
@@ -33,7 +33,7 @@ export const UPDATE_EMERGENCY_SUBCATEGORY = gql`
 `;
 
 export const DELETE_EMERGENCY_SUBCATEGORY = gql`
-  mutation DeleteEmergencySubCategory($id: ID!) {
+  mutation DeleteEmergencySubCategory($id: Int!) {
     deleteEmergencySubCategory(id: $id) {
       success
       message

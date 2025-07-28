@@ -21,3 +21,9 @@ export const GET_EMERGENCY_CATEGORY_BY_ID = gql`
     }
   }
 `;
+
+export const CHECK_EMERGENCY_CATEGORY_EXIST = gql`
+  query GetEmergencyCategoryExist($name: String!, $excludeId: Int) {
+    emergencyCategoryExist(name: $name, excludeId: $excludeId)
+  }
+`;

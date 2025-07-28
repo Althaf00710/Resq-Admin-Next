@@ -23,3 +23,14 @@ export const GET_EMERGENCY_SUBCATEGORY_BY_ID = gql`
     }
   }
 `;
+
+export const GET_SUBCATEGORIES_BY_CATEGORY = gql`
+  query GetSubcategoriesByCategory($categoryId: Int!) {
+    subCategoriesByCategoryId(categoryId: $categoryId) {
+      id
+      name
+      description
+      imageUrl
+    }
+  }
+`;

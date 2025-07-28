@@ -9,13 +9,23 @@ interface DeleteButtonProps {
 }
 
 const DeleteButton: React.FC<DeleteButtonProps> = ({ onClick, label = 'Delete' }) => {
+  const baseClass =
+    'inline-flex items-center transition cursor-pointer rounded-full focus:outline-none';
+
+  const withLabelClass =
+    'gap-1 px-3 py-1.5 text-sm text-white bg-red-600 hover:bg-red-700';
+
+  const iconOnlyClass =
+    'p-2 text-white bg-red-600 hover:bg-red-700';
+
   return (
     <button
       onClick={onClick}
-      className="inline-flex items-center gap-1 px-3 py-1.5 text-sm text-white bg-red-600 rounded-full hover:bg-red-700 transition cursor-pointer"
+      className={`${baseClass} ${label ? withLabelClass : iconOnlyClass}`}
+      title={!label ? 'Delete' : undefined}
     >
       <Trash2 className="w-4 h-4" />
-      {label}
+      {label && <span>{label}</span>}
     </button>
   );
 };

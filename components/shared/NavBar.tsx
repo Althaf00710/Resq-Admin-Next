@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, User, Worm, Menu, X } from 'lucide-react';
+import { LayoutDashboard, User, Worm, Menu, X, TriangleAlert } from 'lucide-react';
 import React from 'react';
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import './gradient-flow.css';
@@ -33,6 +33,13 @@ const navItems = [
     href: '/admin/users',
     icon: <User size={20} />,
     description: 'Manage user accounts and permissions',
+    lottieUrl: 'https://lottie.host/a3cfd9e0-6b0e-4695-9123-c44be6a6f021/bDSF8z41C4.json',
+  },
+  {
+    label: 'Emergency Categories',
+    href: '/admin/emergency-category',
+    icon: <TriangleAlert size={20} />,
+    description: 'Manage Emergency Categories and subcategories',
     lottieUrl: 'https://lottie.host/a3cfd9e0-6b0e-4695-9123-c44be6a6f021/bDSF8z41C4.json',
   },
 ];

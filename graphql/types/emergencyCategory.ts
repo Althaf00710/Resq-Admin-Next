@@ -5,19 +5,19 @@ export interface EmergencyCategory {
   icon: string;
 }
 
-export interface EmergencyCategoryInput {
+export interface EmergencyCategoryCreateInput {
   name: string;
   description: string;
   icon: string;
 }
 
 export interface CreateEmergencyCategoryVars {
-  input: EmergencyCategoryInput;
+  input: EmergencyCategoryCreateInput;
 }
 
 export interface UpdateEmergencyCategoryVars {
   id: string;
-  input: EmergencyCategoryInput;
+  input: EmergencyCategoryCreateInput;
 }
 
 export interface DeleteEmergencyCategoryVars {

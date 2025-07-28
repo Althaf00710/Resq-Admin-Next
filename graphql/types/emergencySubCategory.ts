@@ -10,7 +10,7 @@ export interface CreateEmergencySubCategoryVars {
   input: {
     name: string;
     description: string;
-    emergencyCategoryId: string;
+    emergencyCategoryId: number;
   };
   image?: File;
 }
