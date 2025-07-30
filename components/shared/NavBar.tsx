@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, User, Worm, Menu, X, TriangleAlert } from 'lucide-react';
+import { LayoutDashboard, User, Worm, Menu, X, TriangleAlert, ShieldUser } from 'lucide-react';
 import React from 'react';
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import './gradient-flow.css';
@@ -39,8 +39,15 @@ const navItems = [
     label: 'Emergency Categories',
     href: '/admin/emergency-category',
     icon: <TriangleAlert size={20} />,
-    description: 'Manage Emergency Categories and subcategories',
-    lottieUrl: 'https://lottie.host/a3cfd9e0-6b0e-4695-9123-c44be6a6f021/bDSF8z41C4.json',
+    description: 'Manage Emergency Categories and Subs',
+    lottieUrl: 'https://lottie.host/4d7ddbb1-fac6-4d08-a31c-cb1d883c94f2/vXLKE0iNWz.json',
+  },
+  {
+    label: 'Civilian Status',
+    href: '/admin/civilian-status',
+    icon: <ShieldUser size={20} />,
+    description: 'Manage Civilian Status Accessibility',
+    lottieUrl: 'https://lottie.host/bec69af3-bdc4-47bd-992a-1196a8034f39/Gt1mqwuvfQ.json',
   },
 ];
 
@@ -102,7 +109,7 @@ const Navbar: React.FC<NavbarProps> = ({ collapsed = false, onToggle }) => {
                     <p className="text-sm m-0 font-semibold text-white dark:text-white">
                       {item.label}
                     </p>
-                    <p className="text-xs font-semibold text-shadow-gray-800 text-gray-100 dark:text-gray-100 leading-snug">
+                    <p className="text-xs font-semibold text-shadow-gray-800 text-gray-200 dark:text-gray-100 leading-snug">
                       {item.description}
                     </p>
                   </div>

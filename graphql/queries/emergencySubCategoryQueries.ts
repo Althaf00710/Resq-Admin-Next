@@ -35,3 +35,9 @@ export const GET_SUBCATEGORIES_BY_CATEGORY = gql`
     }
   }
 `;
+
+export const VALIDATE_SUBCATEGORY = gql`
+  query emergencySubCategoryValidate($name: String!, $categoryId: Int!, $excludeId: Int) {
+    emergencySubCategoryValidate(name: $name, categoryId: $categoryId, excludeId: $excludeId) 
+  }
+`;

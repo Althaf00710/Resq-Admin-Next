@@ -4,19 +4,19 @@ import React, { useState } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import client from '@/lib/apolloClient';
 
-import { 
-  GET_ALL_EMERGENCY_CATEGORIES 
-} from '@/graphql/queries/emergencyCategoryQueries';
-import { 
-  GET_SUBCATEGORIES_BY_CATEGORY 
-} from '@/graphql/queries/emergencySubCategoryQueries';
+import DebouncedSearchBar from '@/components/ui/search/DebouncedSearchBar';
+import AddButton from '@/components/ui/button/AddButton';
+import EmergencyCategoryTable from '@/components-page/emergency-category/EmergencyCategoryTable';
+import EmergencyCategoryForm from '@/components-page/emergency-category/EmergencyCategoryForm';
+import EmergencySubCategoryForm from '@/components-page/emergency-category/subcategory/EmergencySubCategoryForm';
 
+import { GET_ALL_EMERGENCY_CATEGORIES } from '@/graphql/queries/emergencyCategoryQueries';
+import { GET_SUBCATEGORIES_BY_CATEGORY } from '@/graphql/queries/emergencySubCategoryQueries';
 import {
   CREATE_EMERGENCY_CATEGORY,
   UPDATE_EMERGENCY_CATEGORY,
   DELETE_EMERGENCY_CATEGORY,
 } from '@/graphql/mutations/emergencyCategoryMutations';
-
 import {
   CREATE_EMERGENCY_SUBCATEGORY,
   UPDATE_EMERGENCY_SUBCATEGORY,
@@ -34,15 +34,14 @@ import {
   UpdateEmergencySubCategoryVars,
 } from '@/graphql/types/emergencySubCategory';
 
-import EmergencyCategoryTable from '@/components-page/emergency-category/EmergencyCategoryTable';
-import EmergencyCategoryForm from '@/components-page/emergency-category/EmergencyCategoryForm';
-import EmergencySubCategoryForm from '@/components-page/emergency-category/subcategory/EmergencySubCategoryForm';
-import AddButton from '@/components/ui/button/AddButton';
-
 export default function EmergencyCategoriesPage() {
-  // — Category list
+  // — Category list and search state
   const { data, refetch } = useQuery(GET_ALL_EMERGENCY_CATEGORIES);
   const categories: EmergencyCategory[] = data?.emergencyCategories || [];
+  const [searchTerm, setSearchTerm] = useState<string>('');
+  const filteredCategories = categories.filter(cat =>
+    cat.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   // — Subcategory cache (keyed by categoryId)
   const [subcategories, setSubcategories] = useState<Record<string, EmergencySubCategory[]>>({});
@@ -91,7 +90,9 @@ export default function EmergencyCategoriesPage() {
     await deleteCategory({ variables: { id: parseInt(id, 10) } });
     await refetch();
   };
-  const handleCategorySubmit = async (vars: CreateEmergencyCategoryVars | UpdateEmergencyCategoryVars) => {
+  const handleCategorySubmit = async (
+    vars: CreateEmergencyCategoryVars | UpdateEmergencyCategoryVars
+  ) => {
     if ('id' in vars) {
       await updateCategory({
         variables: { id: parseInt(vars.id, 10), input: vars.input },
@@ -133,11 +134,8 @@ export default function EmergencyCategoriesPage() {
         },
       });
     } else {
-      await createSubCategory({
-        variables: { input: vars.input, image: null },
-      });
+      await createSubCategory({ variables: { input: vars.input, image: null } });
     }
-    // re-fetch the sub-list under the same category
     if (selectedCategoryId != null) {
       await fetchAndCacheSubcategories(selectedCategoryId);
     }
@@ -147,13 +145,21 @@ export default function EmergencyCategoriesPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center">
+      <div className="grid grid-cols-3 items-center">
         <h1 className="text-xl font-semibold">Emergency Categories</h1>
-        <AddButton onClick={openNewCategoryForm} />
+        <div className="justify-self-center w-full max-w-md">
+          <DebouncedSearchBar
+            onSearch={setSearchTerm}
+            placeholder="Search categories..."
+          />
+        </div>
+        <div className="justify-self-end">
+          <AddButton onClick={openNewCategoryForm} />
+        </div>
       </div>
 
       <EmergencyCategoryTable
-        categories={categories}
+        categories={filteredCategories}
         subcategories={subcategories}
         setSubcategories={setSubcategories}
         onExpand={cid => fetchAndCacheSubcategories(parseInt(cid, 10))}
@@ -181,7 +187,6 @@ export default function EmergencyCategoriesPage() {
         }}
         onSubmit={handleSubFormSubmit}
         initialData={editingSubCategory || undefined}
-        // Pass as string so form can parse it to number
         emergencyCategoryId={String(selectedCategoryId ?? '')}
       />
     </div>

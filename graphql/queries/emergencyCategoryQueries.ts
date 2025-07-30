@@ -27,3 +27,13 @@ export const CHECK_EMERGENCY_CATEGORY_EXIST = gql`
     emergencyCategoryExist(name: $name, excludeId: $excludeId)
   }
 `;
+
+export const GET_UNMAPPED_EMERGENCY_TO_CIVILIAN = gql`
+  query GetUnmappedEmergencyToCivilian($civilianStatusId: Int!) {
+    unmappedEmergencyToCivilian(civilianStatusId: $civilianStatusId) {
+      id
+      icon
+      name
+    } 
+  }
+`;

@@ -2,7 +2,7 @@ import { gql } from '@apollo/client';
 
 export const CREATE_EMERGENCY_TO_CIVILIAN_MAPPING = gql`
   mutation CreateEmergencyToCivilianMapping(
-    $input: CreateEmergencyToCivilianMappingInput!
+    $input: EmergencyToCivilianInput!
   ) {
     createEmergencyToCivilianMapping(input: $input) {
       success
@@ -17,7 +17,7 @@ export const CREATE_EMERGENCY_TO_CIVILIAN_MAPPING = gql`
 `;
 
 export const DELETE_EMERGENCY_TO_CIVILIAN_MAPPING = gql`
-  mutation DeleteEmergencyToCivilianMapping($id: ID!) {
+  mutation DeleteEmergencyToCivilianMapping($id: Int!) {
     deleteEmergencyToCivilianMapping(id: $id) {
       success
       message

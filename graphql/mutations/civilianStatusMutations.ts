@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
 export const CREATE_CIVILIAN_STATUS = gql`
-  mutation CreateCivilianStatus($input: CreateCivilianStatusInput!) {
+  mutation CreateCivilianStatus($input: CivilianStatusCreateInput!) {
     createCivilianStatus(input: $input) {
       success
       message
@@ -15,7 +15,7 @@ export const CREATE_CIVILIAN_STATUS = gql`
 `;
 
 export const UPDATE_CIVILIAN_STATUS = gql`
-  mutation UpdateCivilianStatus($id: ID!, $input: UpdateCivilianStatusInput!) {
+  mutation UpdateCivilianStatus($id: Int!, $input: CivilianStatusUpdateInput!) {
     updateCivilianStatus(id: $id, input: $input) {
       success
       message
@@ -29,7 +29,7 @@ export const UPDATE_CIVILIAN_STATUS = gql`
 `;
 
 export const DELETE_CIVILIAN_STATUS = gql`
-  mutation DeleteCivilianStatus($id: ID!) {
+  mutation DeleteCivilianStatus($id: Int!) {
     deleteCivilianStatus(id: $id) {
       success
       message
