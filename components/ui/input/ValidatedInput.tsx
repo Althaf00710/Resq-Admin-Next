@@ -5,7 +5,7 @@ import { Check, X, User } from 'lucide-react';
 import FloatingInput from './FloatingInput';
 
 interface ValidatedInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  label: string;
+  label: React.ReactNode;
   isValid?: boolean | null;
   onDebouncedChange?: (value: string) => void;
   debounceDelay?: number;

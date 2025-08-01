@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, User, Worm, Menu, X, TriangleAlert, ShieldUser } from 'lucide-react';
+import { LayoutDashboard, Worm, Menu, X, TriangleAlert, ShieldUser, Truck, Ambulance, BriefcaseMedical, Users, UserCheck } from 'lucide-react';
 import React from 'react';
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import './gradient-flow.css';
@@ -31,7 +31,7 @@ const navItems = [
   {
     label: 'Users',
     href: '/admin/users',
-    icon: <User size={20} />,
+    icon: <UserCheck size={20} />,
     description: 'Manage user accounts and permissions',
     lottieUrl: 'https://lottie.host/a3cfd9e0-6b0e-4695-9123-c44be6a6f021/bDSF8z41C4.json',
   },
@@ -40,7 +40,7 @@ const navItems = [
     href: '/admin/emergency-category',
     icon: <TriangleAlert size={20} />,
     description: 'Manage Emergency Categories and Subs',
-    lottieUrl: 'https://lottie.host/4d7ddbb1-fac6-4d08-a31c-cb1d883c94f2/vXLKE0iNWz.json',
+    lottieUrl: 'https://lottie.host/4cda0d3d-291c-47b2-861d-7941dbfe6035/P33k1D9V8l.json',
   },
   {
     label: 'Civilian Status',
@@ -48,6 +48,34 @@ const navItems = [
     icon: <ShieldUser size={20} />,
     description: 'Manage Civilian Status Accessibility',
     lottieUrl: 'https://lottie.host/bec69af3-bdc4-47bd-992a-1196a8034f39/Gt1mqwuvfQ.json',
+  },
+  {
+    label: 'Vehicle Categories',
+    href: '/admin/vehicle-category',
+    icon: <Truck size={20} />,
+    description: 'Manage Vehicle Category Accessibility',
+    lottieUrl: 'https://lottie.host/472e51b4-a1b1-4411-bebf-b4aea80163d5/SDnJdTDHC7.json',
+  },
+  {
+    label: 'ResQ Vehicles',
+    href: '/admin/vehicles',
+    icon: <Ambulance size={20} />,
+    description: "Manage Rescue Vehicles' Records",
+    lottieUrl: 'https://lottie.host/1f86b613-9fc5-4012-9a3f-7c3012fd237a/Tn0E5bLiHN.json',
+  },
+  {
+    label: 'Civilians',
+    href: '/admin/civilians',
+    icon: <Users size={20} />,
+    description: "Manage Rescue Vehicles' Records",
+    lottieUrl: 'https://lottie.host/ae03c565-06ae-49d6-8366-cf9cdd1e7526/OrEW67Fnbr.json',
+  },
+  {
+    label: 'First Aids',
+    href: '/admin/firstaids',
+    icon: <BriefcaseMedical size={20} />,
+    description: "Manage First Aid Records for Emergencies",
+    lottieUrl: 'https://lottie.host/36b16106-7361-498b-8793-f7ca03acaeff/tiRKwGcRSq.json',
   },
 ];
 

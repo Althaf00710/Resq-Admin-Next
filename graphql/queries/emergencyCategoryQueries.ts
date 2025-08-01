@@ -37,3 +37,13 @@ export const GET_UNMAPPED_EMERGENCY_TO_CIVILIAN = gql`
     } 
   }
 `;
+
+export const GET_UNMAPPED_EMERGENCY_TO_VEHICLE = gql`
+  query GetUnmappedEmergencyToVehicle($vehicleCategoryId: Int!) {
+    unmappedEmergencyToVehicle(vehicleCategoryId: $vehicleCategoryId) {
+      id
+      icon
+      name
+    }
+  }
+`;

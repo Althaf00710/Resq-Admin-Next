@@ -3,7 +3,7 @@
 import React from 'react';
 
 interface FloatingInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  label: string;
+  label: React.ReactNode;
   textarea?: boolean;
 }
 

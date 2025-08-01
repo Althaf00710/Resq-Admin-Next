@@ -29,7 +29,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ placeholder = 'Search...', onSear
       />
       <button
         type="submit"
-        className="text-sm bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded-full transition"
+        className="text-sm bg-blue-500 hover:bg-blue-600 text-white px-3 py-2 rounded-full cursor-pointer transition"
       >
         Search
       </button>

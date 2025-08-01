@@ -60,9 +60,9 @@ export const CivilianStatusTable: React.FC<CivilianStatusTableProps> = ({
       <table className="min-w-full divide-y divide-gray-200 text-sm overflow-x-auto">
         <colgroup>
             <col className="w-1/10" />    
-            <col className="w-4/10" />    {/* Description */}
-            <col className="w-4/10" />    {/* Emergency Categories */}
-            <col className="w-1/10" />    {/* Actions */}
+            <col className="w-4/10" />    
+            <col className="w-4/10" />   
+            <col className="w-1/10" />    
           </colgroup>
         <thead className="bg-gray-300 text-left text-gray-800">
           <tr>

@@ -1,7 +1,7 @@
 export interface EmergencyCategory {
   id: string;
   name: string;
-  description: string;
+  description?: string;
   icon: string;
 }
 

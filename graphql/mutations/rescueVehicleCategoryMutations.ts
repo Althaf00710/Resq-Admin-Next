@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
 export const CREATE_RESCUE_VEHICLE_CATEGORY = gql`
-  mutation CreateRescueVehicleCategory($input: CreateRescueVehicleCategoryInput!) {
+  mutation CreateRescueVehicleCategory($input: RescueVehicleCategoryCreateInput!) {
     createRescueVehicleCategory(input: $input) {
       success
       message
@@ -14,7 +14,7 @@ export const CREATE_RESCUE_VEHICLE_CATEGORY = gql`
 `;
 
 export const UPDATE_RESCUE_VEHICLE_CATEGORY = gql`
-  mutation UpdateRescueVehicleCategory($id: ID!, $input: UpdateRescueVehicleCategoryInput!) {
+  mutation UpdateRescueVehicleCategory($id: Int!, $input: RescueVehicleCategoryUpdateInput!) {
     updateRescueVehicleCategory(id: $id, input: $input) {
       success
       message
@@ -27,7 +27,7 @@ export const UPDATE_RESCUE_VEHICLE_CATEGORY = gql`
 `;
 
 export const DELETE_RESCUE_VEHICLE_CATEGORY = gql`
-  mutation DeleteRescueVehicleCategory($id: ID!) {
+  mutation DeleteRescueVehicleCategory($id: Int!) {
     deleteRescueVehicleCategory(id: $id) {
       success
       message

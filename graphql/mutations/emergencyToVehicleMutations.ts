@@ -2,7 +2,7 @@ import { gql } from '@apollo/client';
 
 export const CREATE_EMERGENCY_TO_VEHICLE_MAPPING = gql`
   mutation CreateEmergencyToVehicleMapping(
-    $input: CreateEmergencyToVehicleMappingInput!
+    $input: EmergencyToVehicleInput!
   ) {
     createEmergencyToVehicleMapping(input: $input) {
       success
@@ -17,7 +17,7 @@ export const CREATE_EMERGENCY_TO_VEHICLE_MAPPING = gql`
 `;
 
 export const DELETE_EMERGENCY_TO_VEHICLE_MAPPING = gql`
-  mutation DeleteEmergencyToVehicleMapping($id: ID!) {
+  mutation DeleteEmergencyToVehicleMapping($id: Int!) {
     deleteEmergencyToVehicleMapping(id: $id) {
       success
       message

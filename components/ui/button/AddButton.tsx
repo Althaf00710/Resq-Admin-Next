@@ -20,7 +20,7 @@ const AddButton: React.FC<AddButtonProps> = ({ onClick, label = 'Add' }) => {
     <button
       onClick={onClick}
       className={`${baseClass} ${label ? withLabelClass : iconOnlyClass}`}
-      title={!label ? 'Add' : undefined} // tooltip for icon-only button
+      title={!label ? 'Add' : undefined}
     >
       <Plus className="w-5 h-5" />
       {label && <span>{label}</span>}

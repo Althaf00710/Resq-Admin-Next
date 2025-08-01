@@ -1,7 +1,7 @@
-export interface RescueVehicle {
+export interface Vehicle {
   id: string;
   plateNumber: string;
-  status: string;
+  status: 'Active' | 'Inactive' | 'On Service';
   code: string;
   rescueVehicleCategory: {
     id: string;
@@ -33,5 +33,5 @@ export interface DeleteRescueVehicleVars {
 export interface RescueVehicleResponse {
   success: boolean;
   message: string;
-  rescueVehicle: RescueVehicle;
+  rescueVehicle: Vehicle;
 }

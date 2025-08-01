@@ -16,14 +16,32 @@ export const GET_RESCUE_VEHICLE_BY_ID = gql`
   }
 `;
 
-export const GET_ALL_RESCUE_VEHICLES = gql`
-  query GetAllRescueVehicles {
-    rescueVehicles {
-      id
-      code
-      plateNumber
-      rescueVehicleCategoryId
-      status
+export const GET_RESCUE_VEHICLES = gql`
+  query GetRescueVehicles(
+    $first: Int!
+    $after: String
+    $where: RescueVehicleFilterInput
+  ) {
+    rescueVehicles(first: $first, after: $after, where: $where) {
+      totalCount
+      edges {
+        cursor
+        node {
+          id
+          code
+          plateNumber
+          status
+          rescueVehicleCategoryId
+          rescueVehicleCategory {
+            id
+            name
+          }
+        }
+      }
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
     }
   }
 `;
