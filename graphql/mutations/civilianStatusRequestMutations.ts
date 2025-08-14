@@ -23,7 +23,7 @@ export const CREATE_CIVILIAN_STATUS_REQUEST = gql`
 `;
 
 export const UPDATE_CIVILIAN_STATUS_REQUEST = gql`
-  mutation UpdateCivilianStatusRequest($id: ID!, $input: UpdateCivilianStatusRequestInput!) {
+  mutation UpdateCivilianStatusRequest($id: Int!, $input: CivilianStatusRequestUpdateInput!) {
     updateCivilianStatusRequest(id: $id, input: $input) {
       success
       message

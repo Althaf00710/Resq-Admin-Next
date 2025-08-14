@@ -9,6 +9,16 @@ export interface Vehicle {
   };
 }
 
+export type GetRescueVehiclesQueryVariables = {
+  first: number;
+  after?: string | null;
+  where?: {
+    plateNumber?: { contains?: string };
+    status?: { eq?: string };
+    rescueVehicleCategoryId?: { eq?: number };
+  } | null;
+};
+
 export interface CreateRescueVehicleVars {
   input: {
     plateNumber: string;
@@ -18,7 +28,7 @@ export interface CreateRescueVehicleVars {
 }
 
 export interface UpdateRescueVehicleVars {
-  id: string;
+  id: number;
   input: {
     plateNumber: string;
     password?: string;

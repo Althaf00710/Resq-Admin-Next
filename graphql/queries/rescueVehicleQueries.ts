@@ -45,3 +45,9 @@ export const GET_RESCUE_VEHICLES = gql`
     }
   }
 `;
+
+export const CHECK_PLATE_NUMBER_EXIST = gql`
+  query CheckPlateNumberExist($numberPlate: String!, $excludeId: Int) {
+    checkPlateNumberExist(numberPlate: $numberPlate, excludeId: $excludeId)
+  }
+`;

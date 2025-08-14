@@ -2,10 +2,15 @@ export interface Civilian {
   id: string;
   name: string;
   email: string;
-  nicNumber: string;
   phoneNumber: string;
-  joinedDate: string;
-  civilianStatusId: string;
+  nicNumber: string;
+  joinedDate: string | Date;
+  isRestrict: boolean;
+  civilianStatusId: number;
+  civilianStatus: {
+    id: string;
+    role: string;
+  };
 }
 
 export interface CivilianInput {
@@ -39,3 +44,13 @@ export interface UpdateCivilianVars {
   id: string;
   input: CivilianInput;
 }
+
+export type RestrictCivilianVars = { id: number };
+export type UnrestrictCivilianVars = { id: number };
+
+export type RestrictCivilianResp = {
+  restrictCivilian: { success: boolean; message: string };
+};
+export type UnrestrictCivilianResp = {
+  unrestrictCivilian: { success: boolean; message: string };
+};

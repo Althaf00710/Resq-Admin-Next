@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, Worm, Menu, X, TriangleAlert, ShieldUser, Truck, Ambulance, BriefcaseMedical, Users, UserCheck } from 'lucide-react';
+import { LayoutDashboard, Worm, Menu, X, TriangleAlert, ShieldUser, Truck, Ambulance, BriefcaseMedical, Users, UserCheck, UserCog, Siren} from 'lucide-react';
 import React from 'react';
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import './gradient-flow.css';
@@ -20,6 +20,13 @@ const navItems = [
     icon: <LayoutDashboard size={20} />,
     description: 'View system metrics and reports',
     lottieUrl: 'https://lottie.host/0eaca8c3-8098-488a-9077-e188db875a29/5RdxvpEsQ2.json',
+  },
+  {
+    label: 'Resq Cases',
+    href: '/admin/resq-cases',
+    icon: <Siren size={20} />,
+    description: 'View Case Requests and Statuses',
+    lottieUrl: 'https://lottie.host/80c50a62-30ec-4fcd-b0a3-4426daaffb03/HB7adHodiM.json',
   },
   {
     label: 'Snakes',
@@ -69,6 +76,13 @@ const navItems = [
     icon: <Users size={20} />,
     description: "Manage Rescue Vehicles' Records",
     lottieUrl: 'https://lottie.host/ae03c565-06ae-49d6-8366-cf9cdd1e7526/OrEW67Fnbr.json',
+  },
+  {
+    label: 'Status Requests',
+    href: '/admin/civilian-status-request',
+    icon: <UserCog size={20} />,
+    description: "Manage Civilian Status Requests",
+    lottieUrl: 'https://lottie.host/40d61539-e905-42d3-a4ce-ff990104390d/78i89Km2Wl.json',
   },
   {
     label: 'First Aids',

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useMemo } from "react";
-import { useQuery, useMutation } from "@apollo/client";
+import { useQuery, useMutation, useSubscription } from "@apollo/client";
 import Stack from "@mui/material/Stack";
 import Pagination from "@mui/material/Pagination";
 
@@ -14,8 +14,9 @@ import { GET_RESCUE_VEHICLES } from "@/graphql/queries/rescueVehicleQueries";
 import {
   CREATE_RESCUE_VEHICLE,
   UPDATE_RESCUE_VEHICLE,
+  DELETE_RESCUE_VEHICLE
 } from "@/graphql/mutations/rescueVehicleMutations";
-
+import { ON_VEHICLE_STATUS_CHANGED } from "@/graphql/subscriptions/rescueVehicleSubscriptions";
 import {
   Vehicle,
   CreateRescueVehicleVars,
@@ -25,7 +26,6 @@ import {
 export default function VehiclesPage() {
   const pageSize = 10;
 
-  // ——— 1) top-level state/hooks ———
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState<
     "Active" | "Inactive" | "On Service" | ""
@@ -36,7 +36,6 @@ export default function VehiclesPage() {
   const [isFormOpen, setFormOpen] = useState(false);
   const [editingVehicle, setEditingVehicle] = useState<Vehicle | null>(null);
 
-  // ——— 2) build the `where` object for server filtering ———
   const where = useMemo(() => {
     const w: any = {};
     if (searchTerm) w.plateNumber = { contains: searchTerm };
@@ -46,10 +45,28 @@ export default function VehiclesPage() {
     return Object.keys(w).length ? w : null;
   }, [searchTerm, statusFilter, categoryFilter]);
 
-  // ——— 3) run the paginated + filtered query ———
   const { data, loading, error, refetch } = useQuery(GET_RESCUE_VEHICLES, {
     variables: { first: pageSize, after: null, where },
     notifyOnNetworkStatusChange: true,
+  });
+
+  useSubscription(ON_VEHICLE_STATUS_CHANGED, {
+    onSubscriptionData: ({ client, subscriptionData }) => {
+      const updated: {
+        id: string;
+        status: string;
+      } = subscriptionData.data?.onVehicleStatusChanged;
+      if (!updated) return;
+
+      client.cache.modify({
+        id: client.cache.identify({ __typename: 'RescueVehicle', id: updated.id }),
+        fields: {
+          status() {
+            return updated.status;
+          },
+        },
+      });
+    },
   });
 
   const [createVehicle] = useMutation<
@@ -62,7 +79,19 @@ export default function VehiclesPage() {
     UpdateRescueVehicleVars
   >(UPDATE_RESCUE_VEHICLE);
 
-  // ——— 4) cache endCursor per page ———
+  const [deleteVehicle] = useMutation<
+    { deleteRescueVehicle: { success: boolean; message: string } },
+    { id: number }
+  >(DELETE_RESCUE_VEHICLE);
+
+  const handleDelete = async (id: string) => {
+    const resp = await deleteVehicle({ variables: { id: parseInt(id, 10) } });
+    if (!resp.data?.deleteRescueVehicle.success) {
+      console.error(resp.data?.deleteRescueVehicle.message);
+    }
+    await refetch();
+  };
+
   useEffect(() => {
     if (!data) return;
     const end = data.rescueVehicles.pageInfo.endCursor;
@@ -73,13 +102,11 @@ export default function VehiclesPage() {
     });
   }, [data, page]);
 
-  // ——— 5) refetch on page or filter change ———
   useEffect(() => {
     const after = page > 1 ? cursors[page - 1] : null;
     refetch({ first: pageSize, after, where });
   }, [page, cursors, where, refetch]);
 
-  // ——— 6) flatten edges => nodes ———
   const vehicles: Vehicle[] = useMemo(
     () => data?.rescueVehicles.edges.map((e) => e.node) ?? [],
     [data]
@@ -88,11 +115,9 @@ export default function VehiclesPage() {
   const totalCount = data?.rescueVehicles.totalCount ?? 0;
   const pageCount = Math.ceil(totalCount / pageSize);
 
-  // ——— 7) loading / error ———
   if (loading && !data) return <p>Loading…</p>;
   if (error) return <p className="text-red-500">Error: {error.message}</p>;
 
-  // ——— 8) CRUD modal handlers ———
   const openNew = () => {
     setEditingVehicle(null);
     setFormOpen(true);
@@ -108,7 +133,11 @@ export default function VehiclesPage() {
     vars: CreateRescueVehicleVars | UpdateRescueVehicleVars
   ) => {
     if ("id" in vars) {
-      await updateVehicle({ variables: vars as UpdateRescueVehicleVars });
+      const updateVars: UpdateRescueVehicleVars = {
+        id: parseInt(vars.id, 10),
+        input: vars.input
+      }
+      await updateVehicle({ variables: updateVars });
     } else {
       await createVehicle({ variables: vars as CreateRescueVehicleVars });
     }
@@ -116,10 +145,8 @@ export default function VehiclesPage() {
     setFormOpen(false);
   };
 
-  // ——— 9) render ———
   return (
     <div className="space-y-6">
-      {/* HEADER */}
       <div className="grid grid-cols-3 items-center">
         <h1 className="text-xl font-semibold">
           Rescue Vehicles <span className="text-gray-500">({totalCount})</span>
@@ -133,7 +160,6 @@ export default function VehiclesPage() {
         </div>
       </div>
 
-      {/* TABLE: filters are inside the table header */}
       <VehicleTable
         vehicles={vehicles}
         statusFilter={statusFilter}
@@ -141,9 +167,9 @@ export default function VehiclesPage() {
         categoryFilter={categoryFilter}
         onCategoryFilterChange={setCategoryFilter}
         onEdit={openEdit}
+        onDelete={handleDelete}
       />
 
-      {/* PAGINATION */}
       <Stack spacing={2} alignItems="center">
         <Pagination
           count={pageCount}
@@ -153,7 +179,6 @@ export default function VehiclesPage() {
         />
       </Stack>
 
-      {/* FORM MODAL */}
       <VehicleForm
         isOpen={isFormOpen}
         initialData={editingVehicle ?? undefined}

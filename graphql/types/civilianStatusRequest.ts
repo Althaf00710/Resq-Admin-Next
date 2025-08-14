@@ -1,11 +1,11 @@
 export interface CivilianStatusRequest {
-  id: string;
+  id: number | string;
   status: string;
-  civilianId: string;
-  civilianStatusId: string;
-  proofImage: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt: string; 
+  updatedAt: string; 
+  civilianStatus?: { id: number | string; role: string | null } | null;
+  civilian?: { id: number | string; name: string | null; civilianStatus: {role: string} } | null;
+  proofImage?: string | null; 
 }
 
 export interface CreateCivilianStatusRequestVars {

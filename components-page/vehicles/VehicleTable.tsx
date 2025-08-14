@@ -21,6 +21,7 @@ interface Props {
   categoryFilter: string;
   onCategoryFilterChange: (v: string) => void;
   onEdit: (vehicleId: string) => void;
+  onDelete: (vehicleId: string) => void;
 }
 
 const statusOptions: HeaderOption[] = [
@@ -37,6 +38,7 @@ export const VehicleTable: React.FC<Props> = ({
   categoryFilter,
   onCategoryFilterChange,
   onEdit,
+  onDelete
 }) => {
   // fetch categories
   const { data: catData } = useQuery<{
@@ -70,9 +72,16 @@ export const VehicleTable: React.FC<Props> = ({
   return (
     <div className="w-full overflow-x-auto rounded-xl border border-gray-200 shadow-sm">
       <table className="min-w-full divide-y divide-gray-200 text-sm">
+        <colgroup>
+          <col className="w-1/8" />
+          <col className="w-1/8" />
+          <col className="w-3/8" />
+          <col className='w-1/8' />
+          <col className='w-3/8' />
+        </colgroup>
         <thead className="bg-gray-300 text-gray-800">
           <tr>
-            <th className="px-4 py-3 font-semibold">Code</th>
+            <th className="px-4 py-3 font-semibold text-left">Code</th>
             <th className="px-4 py-3 font-semibold">Plate Number</th>
             <th className="px-4 py-3">
               <HeaderSelect
@@ -99,7 +108,9 @@ export const VehicleTable: React.FC<Props> = ({
               <tr className="hover:bg-gray-50">
                 <td className="px-4 py-2 font-medium uppercase">{v.code}</td>
                 <td className="px-4 py-2 uppercase">{v.plateNumber}</td>
-                <td className="px-4 py-2">{v.rescueVehicleCategory.name}</td>
+                <td className="px-4 py-2 text-center">
+                  <span className='bg-gray-100 px-2 py-1 rounded-full font-medium text-gray-700 text-sm'>{v.rescueVehicleCategory.name}</span>
+                </td>
                 <td className="px-4 py-2 text-center">
                   <span
                     className={`inline-block px-2 py-1 text-xs rounded-full font-semibold ${
@@ -112,7 +123,7 @@ export const VehicleTable: React.FC<Props> = ({
                 <td className="px-4 py-2 text-right space-x-2">
                   <LocationButton onClick={() => toggleLocation(v.id)} label="View" />
                   <EditButton     onClick={() => onEdit(v.id)} />
-                  <DeleteButton   onClick={() => onEdit(v.id)} /> 
+                  <DeleteButton   onClick={() => onDelete(v.id)} /> 
                 </td>
               </tr>
               <AnimatePresence>
