@@ -9,6 +9,9 @@ export const GET_FIRST_AID_DETAIL_BY_ID = gql`
         id
         displayOrder
         emergencySubCategoryId
+        emergencySubCategory {
+          name
+        }
         imageUrl
         point
       }
@@ -22,6 +25,9 @@ export const GET_ALL_FIRST_AID_DETAILS = gql`
       id
       displayOrder
       emergencySubCategoryId
+      emergencySubCategory {
+        name
+      }
       imageUrl
       point
     }
@@ -34,6 +40,9 @@ export const GET_FIRST_AID_DETAILS_BY_SUBCATEGORY_ID = gql`
       id
       displayOrder
       emergencySubCategoryId
+      emergencySubCategory {
+        name
+      }
       imageUrl
       point
     }

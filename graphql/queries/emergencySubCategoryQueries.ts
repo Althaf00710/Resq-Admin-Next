@@ -41,3 +41,12 @@ export const VALIDATE_SUBCATEGORY = gql`
     emergencySubCategoryValidate(name: $name, categoryId: $categoryId, excludeId: $excludeId) 
   }
 `;
+
+export const GET_EMERGENCY_SUBCATEGORY_WITHOUT_FIRST_AID = gql`
+  query GetEmergencySubCategoryWithoutFirstAid {
+    emergencySubCategoryWithoutFirstAid {
+      id
+      name
+    }
+  }
+`;

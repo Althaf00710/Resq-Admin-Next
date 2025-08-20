@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
 export const CREATE_FIRST_AID_DETAIL = gql`
-  mutation CreateFirstAidDetail($firstAidDetail: CreateFirstAidDetailInput!, $image: Upload) {
+  mutation CreateFirstAidDetail($firstAidDetail: FirstAidDetailCreateInput!, $image: Upload) {
     createFirstAidDetail(firstAidDetail: $firstAidDetail, image: $image) {
       success
       message
@@ -17,7 +17,7 @@ export const CREATE_FIRST_AID_DETAIL = gql`
 `;
 
 export const UPDATE_FIRST_AID_DETAIL = gql`
-  mutation UpdateFirstAidDetail($id: ID!, $firstAidDetail: UpdateFirstAidDetailInput!, $image: Upload) {
+  mutation UpdateFirstAidDetail($id: Int!, $firstAidDetail: FirstAidDetailUpdateInput!, $image: Upload) {
     updateFirstAidDetail(id: $id, firstAidDetail: $firstAidDetail, image: $image) {
       success
       message
@@ -33,7 +33,7 @@ export const UPDATE_FIRST_AID_DETAIL = gql`
 `;
 
 export const DELETE_FIRST_AID_DETAIL = gql`
-  mutation DeleteFirstAidDetail($id: ID!) {
+  mutation DeleteFirstAidDetail($id: Int!) {
     deleteFirstAidDetail(id: $id) {
       success
       message
