@@ -22,6 +22,7 @@ import {
   CreateRescueVehicleVars,
   UpdateRescueVehicleVars,
 } from "@/graphql/types/rescueVehicle";
+import GooLoader from "@/components/ui/Loader";
 
 export default function VehiclesPage() {
   const pageSize = 10;
@@ -115,7 +116,7 @@ export default function VehiclesPage() {
   const totalCount = data?.rescueVehicles.totalCount ?? 0;
   const pageCount = Math.ceil(totalCount / pageSize);
 
-  if (loading && !data) return <p>Loading…</p>;
+  if (loading && !data) return <GooLoader/>;
   if (error) return <p className="text-red-500">Error: {error.message}</p>;
 
   const openNew = () => {

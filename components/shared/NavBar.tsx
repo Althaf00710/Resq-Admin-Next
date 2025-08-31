@@ -19,7 +19,7 @@ const navItems = [
     href: '/admin/dashboard',
     icon: <LayoutDashboard size={20} />,
     description: 'View system metrics and reports',
-    lottieUrl: 'https://lottie.host/0eaca8c3-8098-488a-9077-e188db875a29/5RdxvpEsQ2.json',
+    lottieUrl: 'https://lottie.host/02161c91-dd9c-408b-9349-79e2c12bdd4f/Sf6kab2lgx.json',
   },
   {
     label: 'Resq Cases',

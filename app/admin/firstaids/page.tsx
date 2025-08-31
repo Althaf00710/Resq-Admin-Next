@@ -109,7 +109,7 @@ function FirstAidGalleryModal({
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.98 }}
           transition={{ type: 'spring', stiffness: 260, damping: 20 }}
-          className="rounded-2xl bg-white p-4 shadow-xl dark:bg-neutral-900"
+          className="rounded-2xl bg-white/90 p-4 shadow-xl dark:bg-neutral-900"
         >
           <div className="mb-4 flex items-center justify-between">
             <div className="text-lg font-semibold text-gray-800 dark:text-gray-100">

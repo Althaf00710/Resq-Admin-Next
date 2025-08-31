@@ -135,7 +135,7 @@ export const VehicleTable: React.FC<Props> = ({
                     transition={{ duration: 0.3 }}
                   >
                     <td colSpan={5} className="p-0 bg-gray-50">
-                      <VehicleLocationRow vehicleId={v.id} />
+                      <VehicleLocationRow id={v.id} />
                     </td>
                   </motion.tr>
                 )}

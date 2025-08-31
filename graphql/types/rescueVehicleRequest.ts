@@ -13,7 +13,7 @@ export interface RescueVehicleRequest {
     name: string;
     phoneNumber: string;
   };
-  emergencyCategory: {
+  emergencySubCategory: {
     id: string;
     name: string;
     icon: string;
@@ -24,7 +24,7 @@ export interface CreateRescueVehicleRequestVars {
   input: {
     civilianId: string;
     description: string;
-    emergencyCategoryId: string;
+    emergencySubCategoryId: string;
     latitude: number;
     longitude: number;
     location: string;
