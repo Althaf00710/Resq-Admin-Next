@@ -53,7 +53,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         <Header onMobileToggle={toggleMobileSidebar} />
 
         {/* Scrollable Content */}
-        <main className="flex-1 overflow-y-auto p-4 bg-gray-50 dark:bg-neutral-900">
+        <main className="flex-1 overflow-y-auto p-2 bg-gray-50 dark:bg-neutral-900">
           {children}
         </main>
       </div>
