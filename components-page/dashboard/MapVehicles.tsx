@@ -157,7 +157,7 @@ export default function MapVehicles() {
     if (!g?.maps) return;
     mapRef.current = new g.maps.Map(mapEl.current, {
       center: { lat: 7.8731, lng: 80.7718 }, // Sri Lanka
-      zoom: 7,
+      zoom: 4,
       fullscreenControl: false,
       streetViewControl: false,
       mapTypeControl: false,
@@ -184,20 +184,25 @@ export default function MapVehicles() {
     const w = mapEl.current.clientWidth;
     const isLg = window.matchMedia('(min-width:1024px)').matches;
 
-    // Reserve more space on RIGHT (e.g., dashboard overlay on the right half on lg+)
-    const rightReserve = Math.round(w * (isLg ? 0.5 : 0.22));
+    // Reserve space on the LEFT; gently pan RIGHT
+    const LEFT_RESERVE_RATIO = isLg ? 0.75 : 0.28; // tweak as needed
+    const PAN_BY_RATIO = isLg ? 0.12 : 0.08;       // how far to nudge right
+    const ZOOM_OUT_LEVELS = 7;                     // keep small to avoid big jumps
 
     mapRef.current.fitBounds(bounds, {
       top: 32,
       bottom: 32,
-      left: 32,
-      right: rightReserve + 32,
+      left: Math.round(w * LEFT_RESERVE_RATIO) + 24, // reserve LEFT
+      right: 24,
     } as google.maps.Padding);
 
-    // Optional gentle nudge a bit more left after fit completes
     google.maps.event.addListenerOnce(mapRef.current, 'idle', () => {
-      const px = Math.round((mapEl.current?.clientWidth || 0) * 0.06); // 6% of width
-      mapRef.current!.panBy(-px, 0);
+      const z = mapRef.current!.getZoom() ?? 6;
+      mapRef.current!.setZoom(Math.max(z - ZOOM_OUT_LEVELS, 0));
+
+      // nudge RIGHT (positive x)
+      const px = Math.round((mapEl.current?.clientWidth || 0) * PAN_BY_RATIO);
+      mapRef.current!.panBy(px, 0);
     });
   }
 

@@ -28,6 +28,17 @@ export const GET_USER_BY_ID = gql`
   }
 `;
 
+export const GET_LOG_USER_BY_ID = gql`
+  query GetUserById($id: Int!) {
+    userById(id: $id) {
+      id
+      name
+      username
+      profilePicturePath
+    }
+  }
+`;
+
 export const LOGIN_USER = gql`
   mutation LoginUser($username: String!, $password: String!) {
     loginUser(username: $username, password: $password) {

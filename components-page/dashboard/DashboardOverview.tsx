@@ -151,7 +151,7 @@ export default function DashboardOverview() {
   const COLORS = ['#7327F5', '#F52765', '#3b82f6', '#f59e0b', '#8b5cf6', '#22c55e', '#e11d48', '#06b6d4', '#a3e635'];
 
   return (
-    <div className="space-y-4 p-2 z-50 overflow-y-auto scrollbar-thin scrollbar-track-transparent scrollbar-thumb-slate-400 hover:scrollbar-thumb-slate-500 dark:scrollbar-thumb-slate-600">
+    <div className="space-y-4 p-2 z-[10] overflow-y-auto scrollbar-thin scrollbar-track-transparent scrollbar-thumb-slate-400 hover:scrollbar-thumb-slate-500 dark:scrollbar-thumb-slate-600">
       {/* KPIs (Today) */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-2 bg-gradient-to-r from-purple-700 via-indigo-600 to-blue-700 rounded-2xl">
         <KpiCard title="Total Cases" value={totalCasesToday} icon={<Activity className="w-5 h-5" />} loading={reqLoading} error={!!reqError} />
