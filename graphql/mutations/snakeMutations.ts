@@ -35,7 +35,7 @@ export const UPDATE_SNAKE = gql`
 `;
 
 export const DELETE_SNAKE = gql`
-  mutation DeleteSnake($id: ID!) {
+  mutation DeleteSnake($id: Int!) {
     deleteSnake(id: $id) {
       success
       message

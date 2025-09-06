@@ -263,7 +263,7 @@ export default function FirstAidsPage() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 p-2">
       <div className="relative mb-4 flex h-12 w-full items-center justify-between">
         <h1 className="text-2xl font-semibold text-gray-700">First Aids</h1>
         <div className="ml-auto flex w-32 justify-end">
